@@ -16,6 +16,15 @@ public class CafeKiosk {
         beverages.add(beverage);
     }
 
+    public void add(final Beverage beverage, final int count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException("음료는 1잔 이상 주문하실 수 있습니다.");
+        }
+        for (int i = 0; i < count; i++) {
+            beverages.add(beverage);
+        }
+    }
+
     public void remove(final Beverage beverage) {
         beverages.remove(beverage);
     }
