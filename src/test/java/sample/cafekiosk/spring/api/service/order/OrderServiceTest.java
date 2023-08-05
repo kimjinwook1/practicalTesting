@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
+import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
 import sample.cafekiosk.spring.domain.orderproduct.OrderProductRepository;
@@ -63,7 +64,7 @@ class OrderServiceTest {
 
         productRepository.saveAll(List.of(product1, product2, product3));
 
-        final OrderCreateRequest request = OrderCreateRequest.builder()
+        final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
                 .productNumbers(List.of("001", "002"))
                 .build();
 
@@ -98,7 +99,7 @@ class OrderServiceTest {
         Stock stock2 = Stock.create("002", 2);
         stockRepository.saveAll(List.of(stock1, stock2));
 
-        final OrderCreateRequest request = OrderCreateRequest.builder()
+        final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
                 .productNumbers(List.of("001", "001", "002", "003"))
                 .build();
 
@@ -144,7 +145,7 @@ class OrderServiceTest {
         stock1.deductQuantity(1); // todo
         stockRepository.saveAll(List.of(stock1, stock2));
 
-        final OrderCreateRequest request = OrderCreateRequest.builder()
+        final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
                 .productNumbers(List.of("001", "001", "002", "003"))
                 .build();
 
@@ -166,7 +167,7 @@ class OrderServiceTest {
 
         productRepository.saveAll(List.of(product1, product2, product3));
 
-        final OrderCreateRequest request = OrderCreateRequest.builder()
+        final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
                 .productNumbers(List.of("001", "001"))
                 .build();
 
