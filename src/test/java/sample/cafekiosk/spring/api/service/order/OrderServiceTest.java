@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
@@ -95,8 +93,8 @@ class OrderServiceTest {
         final Product product3 = createProduct(HANDMADE, "003", 5000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
-        Stock stock1 = Stock.create("001", 2);
-        Stock stock2 = Stock.create("002", 2);
+        Stock stock1 = createStock("001", 2);
+        Stock stock2 = createStock("002", 2);
         stockRepository.saveAll(List.of(stock1, stock2));
 
         final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
@@ -140,9 +138,8 @@ class OrderServiceTest {
         final Product product3 = createProduct(HANDMADE, "003", 5000);
         productRepository.saveAll(List.of(product1, product2, product3));
 
-        Stock stock1 = Stock.create("001", 2);
-        Stock stock2 = Stock.create("002", 2);
-        stock1.deductQuantity(1); // todo
+        Stock stock1 = createStock("001", 1);
+        Stock stock2 = createStock("002", 1);
         stockRepository.saveAll(List.of(stock1, stock2));
 
         final OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
@@ -194,6 +191,13 @@ class OrderServiceTest {
                 .price(price)
                 .sellingStatus(SELLING)
                 .name("메뉴이름")
+                .build();
+    }
+
+    private Stock createStock(final String productNumber, final int quantity) {
+        return Stock.builder()
+                .productNumber(productNumber)
+                .quantity(quantity)
                 .build();
     }
 }
