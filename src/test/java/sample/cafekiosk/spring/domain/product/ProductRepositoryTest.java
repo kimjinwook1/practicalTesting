@@ -3,8 +3,8 @@ package sample.cafekiosk.spring.domain.product;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 
 import java.util.List;
 
@@ -13,14 +13,12 @@ import static org.assertj.core.groups.Tuple.tuple;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.*;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
-//@SpringBootTest
-@ActiveProfiles("test")
-@DataJpaTest
-class ProductRepositoryTest {
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
 
+    @Transactional
     @Test
     @DisplayName("원하는 판매상태를 가진 상품들을 조회한다.")
     void findAllBySellingStatusIn() {
@@ -42,6 +40,7 @@ class ProductRepositoryTest {
                 );
     }
 
+    @Transactional
     @Test
     @DisplayName("상품번호 리스트로 상품들을 조회한다.")
     void findAllByProductNumberIn() {
@@ -63,6 +62,7 @@ class ProductRepositoryTest {
                 );
     }
 
+    @Transactional
     @Test
     @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 읽어온다.")
     void findLatestProductNumber() {
